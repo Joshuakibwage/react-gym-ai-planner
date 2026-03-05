@@ -13,9 +13,14 @@ export default function Onboarding(){
 
     return (
         <SignedIn>
-            <section>
-                Onboarding
-            
+            <section className="min-h-screen pt-24 pb-12 px-6">
+                <div className="max-w-xl mx-auto">
+                    {/* Progress indicator */}
+
+                    {/* Step: 1 Questionnaire */}
+
+                    {/* Step: 2 AI Generating */}
+                </div>
             </section>
         </SignedIn>
     )
