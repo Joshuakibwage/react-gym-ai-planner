@@ -1,10 +1,10 @@
 export const goalOptions = [
-    {value: "bulk", label: "Build Muscle (Bulk)"},
-    {value: "cut", label: "Loose Fat (Cut)"},
-    {value: "maintain", label: "Maintain Weight (Maintain)"},
-    {value: "strength", label: "Improve Strength (Strength)"},
-    {value: "endurance", label: "Improve Endurance (Endurance)"},
-    {value: "cardio", label: "Improve CardioCardio)"}
+    {value: "bulk", label: "Build Muscle ( Bulk )"},
+    {value: "cut", label: "Loose Fat ( Cut )"},
+    {value: "maintain", label: "Maintain Weight ( Maintain )"},
+    {value: "strength", label: "Improve Strength ( Strength )"},
+    {value: "endurance", label: "Improve Endurance ( Endurance )"},
+    {value: "cardio", label: "Improve Cardio Health ( Cardio )"}
 ];
 
 
