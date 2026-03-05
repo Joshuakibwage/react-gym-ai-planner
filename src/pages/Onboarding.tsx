@@ -64,7 +64,7 @@ export default function Onboarding(){
 
     return (
         <SignedIn>
-            <section className="min-h-screen pt-24 pb-12 px-6 ">
+            <section className="min-h-screen pb-12 px-6 ">
                 <div className="max-w-xl mx-auto ">
                     {/* Progress indicator */}
 
