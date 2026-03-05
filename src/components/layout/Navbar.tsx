@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
+import { UserButton }  from "@neondatabase/neon-js/auth/react";
 
 // icons
 import { Dumbbell } from 'lucide-react';
 
+import { useAuth } from "@/context/useAuth";
+
 
 const Navbar = () => {
 
-  const user = false;
+  const user = useAuth();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] bg-[var(--background)] backdrop-blur-md">
@@ -30,6 +33,8 @@ const Navbar = () => {
                 <Link to="/profile">
                   <Button variant="ghost" size="sm">My Plan</Button>
                 </Link>
+
+                <UserButton />
               </>
             ) : (
               <>
@@ -49,4 +54,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;
