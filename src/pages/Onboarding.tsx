@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "@/context/useAuth";
 import { RedirectToSignIn, SignedIn } from "@neondatabase/neon-js/auth/react";
+import { api } from "@/lib/api";
 import { 
     goalOptions, 
     experienceOptions, 
@@ -12,7 +13,6 @@ import {
 
 import {
   Card,
-  CardAction,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -35,7 +35,7 @@ import { ArrowRightIcon } from "lucide-react";
 
 export default function Onboarding(){
 
-    const { user } = useAuth();
+    const { user, isLoading } = useAuth();
 
     const [formData, setFormData] = useState({
         goal: "",
@@ -56,49 +56,76 @@ export default function Onboarding(){
 
     async function handleQuestionnaire(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+
+        if (!user?.id) return;
+
+        const profile: Omit<UserProfile, "userId" | "updatedAt"> = {
+            goal: formData.goal as userProfile["goal"],
+            experience: formData.experience as userProfile["experience"],
+            daysPerWeek: parseInt(formData.daysPerWeek),
+            sessionLength: parseInt(formData.sessionLength),
+            equipment: formData.equipment as userProfile["equipment"],
+            preferredSplit: formData.preferredSplit as userProfile["preferredSplit"],
+            injuries: formData.injuries || undefined,
+        }
+        // saveProfile(profile);
+        try {
+            await api.saveProfile(user.id, profile);
+            console.log("Profile saved successfully!");
+        } catch (error) {
+            console.error("Error saving profile:", error);
+        }
     };
+
+    if (isLoading) {
+        return null;
+    }
 
     if( !user ) {
         return <RedirectToSignIn />
     }
 
     return (
-        <SignedIn>
+        <SignedIn >
             <section className="min-h-screen pb-12 px-6 ">
-                <div className="max-w-xl mx-auto ">
+                <div className="max-w-xl mx-auto pt-24 ">
                     {/* Progress indicator */}
+
 
                     {/* Step: 1 Questionnaire */}
                     <Card>
                         <CardHeader>
                             <CardTitle>Tell us about yourself.</CardTitle>
                             <CardDescription>Help us create the perfect plan for you.</CardDescription>
-                            <CardAction>Card Action</CardAction>
                         </CardHeader>
 
                         <form onSubmit={handleQuestionnaire} className="flex flex-col gap-4">
                             {/* goal options */}
-                            <Select value={formData.goal}  onValueChange={(value) => updateForm("goal", value)}>
-                              <Label className="w-[90%] mx-auto text-semibold text-md">What's your primary goal?</Label>
-                                <SelectTrigger className="w-[90%] mx-auto">
-                                    <SelectValue placeholder="Select Goal" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectGroup>
-                                        {
-                                            goalOptions.map((option, index) => (
-                                                <SelectItem 
-                                                    key={index} 
-                                                    value={option.value}
-                                                >
-                                                    {option.label}
-                                                </SelectItem>
-                                            
-                                            ))
-                                        }
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
+                            <div className="w-[90%] mx-auto space-y-3">
+                                <Label className="text-semibold text-md">What's your primary goal?</Label>
+                                <Select value={formData.goal} onValueChange={(value) => updateForm("goal", value)}>
+
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Select Goal" />
+                                    </SelectTrigger>
+                                    
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            {
+                                                goalOptions.map((option, index) => (
+                                                    <SelectItem 
+                                                        key={index} 
+                                                        value={option.value}
+                                                    >
+                                                        {option.label}
+                                                    </SelectItem>
+                                                
+                                                ))
+                                            }
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
 
                                         {/* experience options */}
                             <div className="w-[90%] mx-auto space-y-3">
@@ -241,6 +268,8 @@ export default function Onboarding(){
                     </Card>
 
                     {/* Step: 2 AI generating */}
+
+                    
                 </div>
             </section>
         </SignedIn>
