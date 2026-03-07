@@ -9,8 +9,8 @@ import Profile from './pages/Profile';
 import Onboarding from "./pages/Onboarding";
 import Auth from "./pages/Auth";
 import Account from "./pages/Account";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/Footer";
 
 
  const App = () => {

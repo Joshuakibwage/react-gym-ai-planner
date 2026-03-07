@@ -14,7 +14,7 @@ const Navbar = () => {
   const { user } = useAuth();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background backdrop-blur-md">
+    <header className="w-full py-4 mb-60">
       <div className="max-w-6xl mx-auto px-6 py-6 h-14 flex items-center justify-between">
         <Link 
           to="/"
@@ -30,11 +30,16 @@ const Navbar = () => {
           {
             user ? (
               <>
-                <Link to="/profile">
-                  <Button variant="ghost" size="sm">My Plan</Button>
-                </Link>
+                <div className="flex items-center gap-4">
+                  <Link to="/profile">
+                    <Button variant="ghost" size="sm">My Plan</Button>
+                  </Link>
 
-                <UserButton />
+                  <UserButton 
+                    size="icon" 
+                    className="cursor-pointer"
+                  />
+                </div>
               </>
             ) : (
               <>
