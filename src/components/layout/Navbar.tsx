@@ -14,7 +14,7 @@ const Navbar = () => {
   const { user } = useAuth();
 
   return (
-    <header className="w-full py-4 mb-60">
+    <header className="fixed top-0 right-0 left-0 h-16 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-6 py-6 h-14 flex items-center justify-between">
         <Link 
           to="/"

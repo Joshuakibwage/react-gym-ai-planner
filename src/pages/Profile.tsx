@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 export default function Profile(){
 
     const { user, isLoading } = useAuth();
-    const plan = false;
+    const plan = true;
 
     if( !user && !isLoading ) {
         return <Navigate to="/auth/sign-in" />
