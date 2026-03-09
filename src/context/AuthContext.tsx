@@ -42,8 +42,17 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     }
 
+    async function generatePlan(){
+        if(!neonUser) {
+            throw new Error("You must be authenticated to generate a  plan!");
+        }
+
+        await api.generatePlan(neonUser.id);
+
+    }
+
     return (
-        <AuthContext.Provider value={{ user: neonUser, isLoading, saveProfile }}>
+        <AuthContext.Provider value={{ user: neonUser, isLoading, saveProfile, generatePlan }}>
             {children}
         </AuthContext.Provider>
     )

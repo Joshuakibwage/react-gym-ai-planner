@@ -30,13 +30,14 @@ import {
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, Loader } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function Onboarding(){
 
     const { user, isLoading } = useAuth();
-
     const [formData, setFormData] = useState({
         goal: "",
         experience: "",
@@ -46,6 +47,11 @@ export default function Onboarding(){
         preferredSplit: "",
         injuries: "",
     });
+
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
+
 
     function updateForm(field: string, value: string) {
         setFormData((prev) => ({
@@ -72,9 +78,16 @@ export default function Onboarding(){
         try {
             await api.saveProfile(user.id, profile);
             console.log("Profile saved successfully!");
+            setIsGenerating(true);
+            await api.generatePlan(user.id);
+            navigate("/profile");
         } catch (error) {
             console.error("Error saving profile:", error);
+            setError(error instanceof Error ? error.message : "An error occurred while saving the profile.")
+        } finally {
+            setIsGenerating(false);
         }
+
     };
 
     if (isLoading) {
@@ -93,7 +106,7 @@ export default function Onboarding(){
 
 
                     {/* Step: 1 Questionnaire */}
-                    <Card>
+                   {!isGenerating ? (<Card>
                         <CardHeader>
                             <CardTitle>Tell us about yourself.</CardTitle>
                             <CardDescription>Help us create the perfect plan for you.</CardDescription>
@@ -262,12 +275,32 @@ export default function Onboarding(){
                                     Generate My Workout Plan 
                                     <ArrowRightIcon className="size-4 group-hover:translate-x-1 transition-transform duration-200" />
                                 </Button>
+
+                                {error && (
+                                    <p className="text-sm text-red-500 text-center w-[90%] mx-auto">
+                                        {error}
+                                    </p>
+                                )}
                             </div>
                         </form>
                         
-                    </Card>
+                    </Card>) : (
+                        <>
+                            {/* Step: 2 AI generating */}
+                        
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Generating your plan</CardTitle>
+                                    <CardDescription>Our AI is building your personalized program...</CardDescription>
+                                </CardHeader>
+                                <div className="w-full flex justify-center">
+                                    <Loader className="animate-spin w-6 h-6 md:w-12 md:h-12"/>
+                                </div>
+                            </Card>
+                        </>
+                    )}
 
-                    {/* Step: 2 AI generating */}
+                   
 
                     
                 </div>
