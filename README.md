@@ -10,9 +10,9 @@
     <a href="https://your-demo-link.com"><strong>View Demo »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/your-username/react-gym-ai-planner/issues">Report Bug</a>
+    <a href="https://github.com/Joshuakibwage/react-gym-ai-planner/issues">Report Bug</a>
     ·
-    <a href="https://github.com/your-username/react-gym-ai-planner/issues">Request Feature</a>
+    <a href="https://github.com/Joshuakibwage/react-gym-ai-planner/issues">Request Feature</a>
   </p>
 </div>
 
