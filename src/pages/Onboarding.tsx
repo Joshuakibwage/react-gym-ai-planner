@@ -100,8 +100,8 @@ export default function Onboarding(){
 
     return (
         <SignedIn >
-            <section className="min-h-screen pb-12 px-6 ">
-                <div className="max-w-xl mx-auto pt-24 ">
+            <section className="min-h-screen pt-16 pb-12 px-6 ">
+                <div className="max-w-xl mx-auto ">
                     {/* Progress indicator */}
 
 
@@ -118,7 +118,7 @@ export default function Onboarding(){
                                 <Label className="text-semibold text-md">What's your primary goal?</Label>
                                 <Select value={formData.goal} onValueChange={(value) => updateForm("goal", value)}>
 
-                                    <SelectTrigger className="w-full">
+                                    <SelectTrigger asChild className="w-full">
                                         <SelectValue placeholder="Select Goal" />
                                     </SelectTrigger>
                                     
