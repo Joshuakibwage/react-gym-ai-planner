@@ -42,15 +42,17 @@ const Navbar = () => {
                 </div>
               </>
             ) : (
-              <>
-                <Link to="/auth/sign-up">
-                  <Button variant="ghost" size="sm">Sign In</Button>
-                </Link>
+              
+                <div className="flex items-center gap-4">
+                  <Button asChild variant="ghost" size="sm">
+                    <Link to="/auth/sign-in">Sign In</Link>
+                  </Button>
 
-                <Link to="/auth/sign-in">
-                  <Button size="sm">Sign Up</Button>
-                </Link>
-              </>
+                  <Button asChild size="sm">
+                    <Link to="/auth/sign-up">Sign Up</Link>
+                  </Button>
+                </div>
+              
             )
           }
         </nav>

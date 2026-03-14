@@ -1,4 +1,4 @@
-import type { DaySchedule } from "../../types";
+import type { DaySchedule, Exercise } from "../../types";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Dumbbell, Info } from "lucide-react";
 
@@ -96,6 +96,7 @@ function DayCard({ schedule }: { schedule: DaySchedule }) {
                         {
                             schedule.exercises.map((exercise, key) => (
                                 <ExerciseRow 
+                                    key={key} //<<<<<<<
                                     index={key} 
                                     exercise={exercise} 
                                 />

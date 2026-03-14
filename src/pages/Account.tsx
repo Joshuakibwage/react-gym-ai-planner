@@ -9,7 +9,9 @@ export default function Account() {
     return (
         <div className="min-h-screen w-full pt-24 pb-12 px-6 ">
             <div className="max-w-4xl mx-auto ">
-                <AccountView pathname={pathname} />
+                <AccountView 
+                    pathname={pathname} 
+                />
             </div>
         </div>
     )

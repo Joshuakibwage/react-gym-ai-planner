@@ -15,27 +15,27 @@ import Footer from "./components/Footer";
 
  const App = () => {
    return (
-    <NeonAuthUIProvider emailOTP authClient={authClient} defaultTheme="dark">
-      <AuthProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <NeonAuthUIProvider emailOTP authClient={authClient} defaultTheme="dark">
+        <AuthProvider>
+        
+            <div className="min-h-screen flex flex-col">
+              <Navbar />
+              <main className="flex-1 pt-20">
+                <Routes>
+                  <Route index  element={<Home />} />
+                  <Route path="/onboarding" element={<Onboarding />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/auth/:pathname" element={<Auth />} />
+                  <Route path="/account/:pathname" element={<Account />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
 
-          <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-1 pt-20">
-              <Routes>
-                <Route index  element={<Home />} />
-                <Route path="/onboarding" element={<Onboarding />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/auth/:pathname" element={<Auth />} />
-                <Route path="/account/:pathname" element={<Account />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
-
-        </BrowserRouter>
-      </AuthProvider>
-    </NeonAuthUIProvider>
+        </AuthProvider>
+      </NeonAuthUIProvider>
+    </BrowserRouter>
     
    )
  }

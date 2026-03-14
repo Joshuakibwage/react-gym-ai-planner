@@ -50,6 +50,7 @@ export default function Onboarding(){
 
     const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
 
 
@@ -65,6 +66,9 @@ export default function Onboarding(){
 
         if (!user?.id) return;
 
+        setIsSubmitting(true);
+        setIsGenerating(true); 
+
         const profile: Omit<UserProfile, "userId" | "updatedAt"> = {
             goal: formData.goal as userProfile["goal"],
             experience: formData.experience as userProfile["experience"],
@@ -78,14 +82,15 @@ export default function Onboarding(){
         try {
             await api.saveProfile(user.id, profile);
             console.log("Profile saved successfully!");
-            setIsGenerating(true);
+            
             await api.generatePlan(user.id);
             navigate("/profile");
         } catch (error) {
             console.error("Error saving profile:", error);
             setError(error instanceof Error ? error.message : "An error occurred while saving the profile.")
-        } finally {
             setIsGenerating(false);
+        } finally {
+            setIsSubmitting(false);
         }
 
     };
@@ -102,7 +107,42 @@ export default function Onboarding(){
         <SignedIn >
             <section className="min-h-screen pt-16 pb-12 px-6 ">
                 <div className="max-w-xl mx-auto ">
-                    {/* Progress indicator */}
+            
+                    {/* Progress Indicator */}
+                    <div className="flex items-center justify-center gap-0 py-6">
+                        {/* Step 1 */}
+                        <div className="flex flex-col items-center gap-1.5">
+                            <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium border-2 transition-all
+                                ${isGenerating 
+                                    ? "bg-foreground border-foreground text-background" 
+                                    : "bg-background border-foreground text-foreground"
+                                }`}
+                            >
+                                {isGenerating ? "✓" : "1"}
+                            </div>
+                            <span className={`text-xs whitespace-nowrap ${isGenerating ? "text-muted-foreground" : "text-foreground font-medium"}`}>
+                                Your profile
+                            </span>
+                        </div>
+
+                        {/* Connector */}
+                        <div className={`w-20 h-0.5 mb-5 transition-all ${isGenerating ? "bg-foreground" : "bg-border"}`} />
+
+                        {/* Step 2 */}
+                        <div className="flex flex-col items-center gap-1.5">
+                            <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium border-2 transition-all
+                                ${isGenerating 
+                                    ? "border-foreground text-foreground bg-background" 
+                                    : "border-border text-muted-foreground bg-transparent"
+                                }`}
+                            >
+                                2
+                            </div>
+                            <span className={`text-xs whitespace-nowrap ${isGenerating ? "text-foreground font-medium" : "text-muted-foreground"}`}>
+                                Generating plan
+                            </span>
+                        </div>
+                    </div>
 
 
                     {/* Step: 1 Questionnaire */}
@@ -115,10 +155,10 @@ export default function Onboarding(){
                         <form onSubmit={handleQuestionnaire} className="flex flex-col gap-4">
                             {/* goal options */}
                             <div className="w-[90%] mx-auto space-y-3">
-                                <Label className="text-semibold text-md">What's your primary goal?</Label>
+                                <Label className="font-semibold text-md">What's your primary goal?</Label>
                                 <Select value={formData.goal} onValueChange={(value) => updateForm("goal", value)}>
 
-                                    <SelectTrigger asChild className="w-full">
+                                    <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select Goal" />
                                     </SelectTrigger>
                                     
@@ -271,17 +311,30 @@ export default function Onboarding(){
                             </div>
 
                             <div className="w-[90%] mx-auto flex ">
-                                <Button type="submit" variant="secondary" className="w-full group">
-                                    Generate My Workout Plan 
-                                    <ArrowRightIcon className="size-4 group-hover:translate-x-1 transition-transform duration-200" />
+                                <Button 
+                                    type="submit" 
+                                    variant="secondary" 
+                                    className="w-full group"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <Loader className="size-4 animate-spin" />
+                                            Saving...
+                                        </>
+                                    ) : (
+                                        <>
+                                            Generate My Workout Plan
+                                            <ArrowRightIcon className="size-4 group-hover:translate-x-1 transition-transform duration-200" />
+                                        </>
+                                    )}
                                 </Button>
-
-                                {error && (
-                                    <p className="text-sm text-red-500 text-center w-[90%] mx-auto">
-                                        {error}
-                                    </p>
-                                )}
                             </div>
+                            {error && (
+                                <p className="text-sm text-red-500 text-center w-[90%] mx-auto">
+                                    {error}
+                                </p>
+                            )}
                         </form>
                         
                     </Card>) : (

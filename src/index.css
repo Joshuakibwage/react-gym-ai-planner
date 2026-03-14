@@ -177,9 +177,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* override Better Auth skeleton colors */
-  /* [data-slot="skeleton"],
+  /* override Better Auth skeleton colors  */
+  [data-slot="skeleton"],
   .animate-pulse {
-    background-color: var(--color-border) !important;
-  } */
+    background-color: var(-border) !important;
+  }
 }
