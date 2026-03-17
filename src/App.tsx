@@ -21,7 +21,7 @@ import Footer from "./components/Footer";
         
             <div className="min-h-screen flex flex-col">
               <Navbar />
-              <main className="flex-1 pt-20">
+              <main className="flex-1 mt-8">
                 <Routes>
                   <Route index  element={<Home />} />
                   <Route path="/onboarding" element={<Onboarding />} />

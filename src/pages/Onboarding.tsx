@@ -70,12 +70,12 @@ export default function Onboarding(){
         setIsGenerating(true); 
 
         const profile: Omit<UserProfile, "userId" | "updatedAt"> = {
-            goal: formData.goal as userProfile["goal"],
-            experience: formData.experience as userProfile["experience"],
+            goal: formData.goal as UserProfile["goal"],
+            experience: formData.experience as UserProfile["experience"],
             daysPerWeek: parseInt(formData.daysPerWeek),
             sessionLength: parseInt(formData.sessionLength),
-            equipment: formData.equipment as userProfile["equipment"],
-            preferredSplit: formData.preferredSplit as userProfile["preferredSplit"],
+            equipment: formData.equipment as UserProfile["equipment"],
+            preferredSplit: formData.preferredSplit as UserProfile["preferredSplit"],
             injuries: formData.injuries || undefined,
         }
         // saveProfile(profile);
