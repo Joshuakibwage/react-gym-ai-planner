@@ -1,7 +1,7 @@
 <div align="center">
   <br />
   <div align="center">
-    ![FitForge Preview](public/herobanner.png)
+    <img src="public/herobanner.png" alt="FitForge Preview" width="800" />
   </div>
   <h1 align="center">Gym AI Planner</h1>
   <p align="center">
