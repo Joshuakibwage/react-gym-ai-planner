@@ -1,8 +1,8 @@
 <div align="center">
   <br />
-  <p>
-    <a href="https://github.com/your-username/react-gym-ai-planner"><img src="https://www.gym-planner-logo-url.com/logo.svg" width="200" alt="Gym AI Planner Logo" /></a>
-  </p>
+  <div align="center">
+    ![FitForge App](./public/herobanner.png)
+  </div>
   <h1 align="center">Gym AI Planner</h1>
   <p align="center">
     Your intelligent partner for crafting personalized workout plans.
