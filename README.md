@@ -1,7 +1,7 @@
 <div align="center">
   <br />
   <div align="center">
-    ![Fitness AI App](/public/herobanner.png)
+    ![FitForge Preview](public/herobanner.png)
   </div>
   <h1 align="center">Gym AI Planner</h1>
   <p align="center">
